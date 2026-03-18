@@ -1,39 +1,44 @@
 import re
-import config
 
-def parse_command(text):
-
+def parse_input(text):
     text = text.lower().strip()
-    distance = None
 
-    # Extract number
-    match = re.search(r'(\d+(\.\d+)?)\s*(m|metre|meter|meters)', text)
-    if match:
-        distance = float(match.group(1))
+    # Extract number (distance)
+    match = re.search(r"\d+(\.\d+)?", text)
+    distance = float(match.group()) if match else None
 
-    if "arm" in text:
-        return "ARM"
+    # Command detection
+    if "takeoff" in text or "arm" in text:
+        return "ARM", distance
+
     elif "forward" in text:
-        return ("FORWARD", distance)
-    elif "right" in text:
-        return ("RIGHT", distance)
-    elif "left" in text:
-        return ("LEFT", distance)
-    elif "turn left" in text:
-        return "TURN LEFT"
-    elif "turn right" in text:
-        return "TURN RIGHT"
+        return "FORWARD", distance
+
+    elif "back" in text:
+        return "BACKWARD", distance
+
+    elif "left" in text and "yaw" not in text:
+        return "LEFT", distance
+
+    elif "right" in text and "yaw" not in text:
+        return "RIGHT", distance
+
     elif "up" in text:
-        return ("UP", distance)
+        return "UP", distance
+
     elif "down" in text:
-        return ("DOWN", distance)
-    elif "stop" in text:
-        return "STOP"
-    elif "collect" in text:
-        return "COLLECT"
-    elif "drop" in text:
-        return "DROP"
-    elif "rotate" in text:
-        return "ROTATE DRUM"
-    else:
-        return "UNKNOWN"
+        return "DOWN", distance
+
+    elif "yaw left" in text or "turn left" in text:
+        return "YAW_LEFT", distance
+
+    elif "yaw right" in text or "turn right" in text:
+        return "YAW_RIGHT", distance
+
+    elif "land" in text:
+        return "LAND", None
+
+    elif "stop" in text or "hover" in text:
+        return "STOP", None
+
+    return "UNKNOWN", None

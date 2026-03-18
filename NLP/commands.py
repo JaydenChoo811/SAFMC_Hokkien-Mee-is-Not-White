@@ -1,43 +1,50 @@
 from Drone.controller import *
-from config import *
+from config import SPEED, YAW_RATE
 
-def execute(vehicle, command, distance):
+def execute(mav, command, value):
+    print(f"[EXEC] {command} | value={value}")
 
     if command == "ARM":
-        arm(vehicle)
+        arm_and_takeoff(mav, altitude=3)
 
     elif command == "FORWARD":
-        send_velocity(vehicle, VELOCITY_X, 0, 0, distance)
+        dist = value if value else 2
+        move_forward(mav, dist, SPEED)
 
-    elif command == "RIGHT":
-        send_velocity(vehicle, 0, VELOCITY_Y, 0, distance)
+    elif command == "BACKWARD":
+        dist = value if value else 2
+        move_backward(mav, dist, SPEED)
 
     elif command == "LEFT":
-        send_velocity(vehicle, 0, -VELOCITY_Y, 0, distance)
+        dist = value if value else 2
+        move_left(mav, dist, SPEED)
 
-    elif command == "TURN LEFT":
-        condition_yaw(vehicle, -YAW_INCREMENT, relative=True)
-
-    elif command == "TURN RIGHT":
-        condition_yaw(vehicle, YAW_INCREMENT, relative=True)
+    elif command == "RIGHT":
+        dist = value if value else 2
+        move_right(mav, dist, SPEED)
 
     elif command == "UP":
-        send_velocity(vehicle, 0, 0, -VELOCITY_Z, distance)
+        dist = value if value else 2
+        move_up(mav, dist, SPEED)
 
     elif command == "DOWN":
-        send_velocity(vehicle, 0, 0, VELOCITY_Z, distance)
+        dist = value if value else 1
+        move_down(mav, dist, SPEED)
+
+    elif command == "YAW_LEFT":
+        angle = value if value else 90
+        yaw_left(mav, angle, YAW_RATE)
+
+    elif command == "YAW_RIGHT":
+        angle = value if value else 90
+        yaw_right(mav, angle, YAW_RATE)
 
     elif command == "STOP":
-        send_velocity(vehicle, 0, 0, 0, 0)
+        set_velocity(0, 0, 0)
+        set_yaw_rate(0)
 
-    elif command == "COLLECT":
-        electromagnet_on(vehicle)
-
-    elif command == "DROP":
-        electromagnet_off(vehicle)
-
-    elif command == "ROTATE DRUM":
-        rotate_drum(vehicle)
+    elif command == "LAND":
+        land(mav)
 
     else:
         print("[WARN] Unknown command")
