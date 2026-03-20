@@ -1,11 +1,13 @@
 0 Background Noise
-1 Cycle
-2 Down
-3 Drop
-4 Forward
-5 Left
-6 Reverse
-7 Right
-8 Spin
-9 Stop
-10 Up
+1 Base
+2 Cycle
+3 Disarm
+4 Down
+5 Drop
+6 Forward
+7 Left
+8 Reverse
+9 Right
+10 Spin
+11 Stop
+12 Up
