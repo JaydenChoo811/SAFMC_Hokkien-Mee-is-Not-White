@@ -1,9 +1,6 @@
-'''
-Just for your information, all of this is vibecoded.
-So sorry.
 
-This uses ML from https://teachablemachine.withgoogle.com/train
-'''
+#This uses ML from https://teachablemachine.withgoogle.com/train
+
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
