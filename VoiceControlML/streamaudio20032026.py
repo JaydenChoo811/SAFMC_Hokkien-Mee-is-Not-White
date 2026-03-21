@@ -210,6 +210,8 @@ def audio_callback_in(indata, frames, time_info, status):
             elif arm_counter == 1:
                 display_command = "Request Arm"
 
+
+        #put in your commands here. Note that the command will trigger multiple times.
         if display_command != prev_command:
 
             if display_command == "Cycle":
