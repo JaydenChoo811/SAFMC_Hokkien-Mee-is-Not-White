@@ -55,7 +55,7 @@ Run ```streamaudio20032026.py```.
 
 This model is trained on my (Hao En's) voice, and in a quiet area. This may result in poor accuracy when used by someone else. Additional training from the pilot is required.
 
-Spoken Commands:
+Spoken Commands (doesnt do anything yet):
 1. Forwards, Reverse, Up, Down, Left, Right   :       Movement of drone
 2. Spin                                       :       Switches between Yaw mode, and Roll mode. (e.g. Yaw left, Roll left)
 3. Cycle, Drop                                :       Spins the drum, and drops the payload respectively
